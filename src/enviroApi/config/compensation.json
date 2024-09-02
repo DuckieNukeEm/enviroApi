@@ -1,0 +1,44 @@
+{
+	"weather": {
+		"false": {
+			"enable_eco2_tvoc": {
+				"true": {
+					"comp_temp_cub_a": -0.00005,
+					"comp_temp_cub_b": 0.00563,
+					"comp_temp_cub_c": 0.76548,
+					"comp_temp_cub_d": -5.2795,
+					"comp_hum_quad_a": -0.0047,
+					"comp_hum_quad_b": 2.1582,
+					"comp_hum_quad_c": -3.8446
+				},
+				"flase": {
+					"comp_temp_cub_a": -0.0001,
+					"comp_temp_cub_b": 0.0037,
+					"comp_temp_cub_c": 1.00568,
+					"comp_temp_cub_d": -6.78291,
+					"comp_hum_quad_a": -0.0032,
+					"comp_hum_quad_b": 1.6931,
+					"comp_hum_quad_c": 0.9391
+				}
+			}
+		},
+		"true": {
+			"comp_temp_cub_a": 0.00033,
+			"comp_temp_cub_b": -0.03129,
+			"comp_temp_cub_c": 1.8736,
+			"comp_temp_cub_d": -14.82131,
+			"comp_hum_quad_a": -0.0221,
+			"comp_hum_quad_b": 3.3824,
+			"comp_hum_quad_c": -25.8102
+		}
+	},
+	"red_temp_comp_factor": -0.015,
+	"red_hum_comp_factor": 0.0125,
+	"red_bar_comp_factor": -0.0053,
+	"oxi_temp_comp_factor": -0.017,
+	"oxi_hum_comp_factor": 0.0115,
+	"oxi_bar_comp_factor": -0.0072,
+	"nh3_temp_comp_factor": -0.02695,
+	"nh3_hum_comp_factor": 0.0094,
+	"nh3_bar_comp_factor": 0.003254
+}

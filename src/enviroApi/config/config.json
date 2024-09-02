@@ -2,11 +2,15 @@
 "celsius_or_fahrenheit": "C",
 "temp_offset": 0,
 "altitude": 23,
+"enable_proxy_sensor": true,
+"enable_oxi_redux_nh3": true,
 "enable_noise": false,
 "enable_climate_and_gas_logging": false,
 "enable_particle_sensor": true,
 "enable_eco2_tvoc": false,
+"has_weather_cover": false,
 "gas_daily_r0_calibration_hour": 3,
 "reset_gas_sensor_calibration": false,
 "city_name": "Sydney",
-"time_zone": "Australia/Sydney"}
+"time_zone": "Australia/Sydney",
+"compensation_path": ""}

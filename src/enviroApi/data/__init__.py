@@ -1,26 +1,20 @@
-
+from enviroApi.config import variable_units
 
 
 class SensorData():
+    """Class to hold data from sensors as well as historical data
 
-    def __init__(limit_history = 604800, history_check = 10000, history_remove_amt = 86400 ):
-        self.var_units = {"temp":"C",
-             "press":"hPa",
-             "humidity": "%",
-             "light": "Lux",
-             "oxi": "kO",
-             "redu": "kO",
-             "nh3": "kO",
-             "pm1": "ug/m3",
-             "pm25": "ug/m3",
-             "pm10": "ug/m3"}
+    """
+
+    def __init__(limit_history = 604800, history_check = 10000, history_remove_amt = 86400, var_untits = variable_units ):
+        self.var_units = variable_units
         self.ticker = 0
         self.history_check = history_check
         self.limit_history = limit_history
         self.chunk = history_remove_amt
 
     def set_attributes(self):
-        for K in self.var_units.keys():
+        for K in self.var_units.variables:
             setattr(self, K, 0)
             setattr(self, K + '_hist', [])
 
@@ -34,60 +28,47 @@ class SensorData():
 
     def _check_history(self):
         if self.ticker > self.history_check:
-            for K in self.var_units.keys():
+            for K in self.var_units.variables:
                 if len(getattr(self, K + '_hist')) > self.limit_history:
                     setattr(self, K + '_hist', getattr(self, K + '_hist')[self.chunk:])
             self.ticker = 0
         else:
             self.ticker += 1
         
+    def add_data(self, data):
+        self.add_data(getattr(self.var_units, ))
     def add_temperature_data(self, data):
-        self.add_data('temp',data)
+        self.add_data(self.var_units.temperature,data)
         
     def add_pressure_data(self, data):
-        self.add_data('press',data)
+        self.add_data(self.var_units.pressure,data)
     
     def add_humidity_data(self, data):
-        self.add_data('humidity',data)
+        self.add_data(self.var_units.humidity,data)
 
     def add_light_data(self, data):
-        self.add_data('light',data)
+        self.add_data(self.var_units.light,data)
 
     def add_oxidised_data(self, data):
-        self.add_data('oxi',data)
+        self.add_data(self.var_units.oxidising,data)
 
     def add_reduced_data(self, data):
-        self.add_data('press',data)
+        self.add_data(self.var_units.reducing,data)
 
     def add_nh3_data(self, data):
-        self.add_data('nh3',data)
+        self.add_data(self.var_units.nh3,data)
     
     def add_pm1_data(self, data):
-        self.add_data('pm1',data)
+        self.add_data(self.var_units.pm1,data)
 
     def add_pm25_data(self, data):
-        self.add_data('pm25',data)
+        self.add_data(self.var_units.pm25,data)
 
     def add_pm10_data(self, data):
-        self.add_data('pm10',data)
+        self.add_data(self.var_units.pm10,data)
+
+    def add_noise_data(self, data):
+        self.add_data(self.var_units.noise, data)
     
 
 
-
-variables = {"temp":"C",
-             "press":"hPa",
-             "humidity": "%",
-             "light": "Lux",
-             "oxi": "kO",
-             "redu": "kO",
-             "nh3": "kO",
-             "pm1": "ug/m3",
-             "pm25": "ug/m3",
-             "pm10": "ug/m3"}
-
-
-                own_disp_values["P2.5"] = own_disp_values["P2.5"][1:] + [[own_data["P2.5"][1], 1]]
-            own_data["P10"][1] = pm_values.pm_ug_per_m3(10)
-            own_disp_values["P10"] = own_disp_values["P10"][1:] + [[own_data["P10"][1], 1]]
-            own_data["P1"][1] = pm_values.pm_ug_per_m3(1.0)
-            own_disp_values["P1"] = own_disp_values["P1"][1:] + [[own_data["P1"][1], 1]]
