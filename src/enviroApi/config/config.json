@@ -2,6 +2,7 @@
 "celsius_or_fahrenheit": "C",
 "temp_offset": 0,
 "altitude": 23,
+"enable_display": true,
 "enable_proxy_sensor": true,
 "enable_oxi_redux_nh3": true,
 "enable_noise": false,

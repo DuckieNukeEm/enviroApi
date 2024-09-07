@@ -4,7 +4,6 @@ import importlib.resources as ilr
 from typing import Union
 from dataclass import dataclass
 
-
 @dataclass
 class Config(frozen=True):
     c_or_f: str = "C"
@@ -26,7 +25,7 @@ class Config(frozen=True):
 
 
 @dataclass
-class Variable_units:
+class Variable_Units:
     # TO DO need to check the units for cos and voc
     variables: list = [
         "light",
@@ -58,6 +57,7 @@ class Variable_units:
         "kOhms",
         "kOhms",
     ]
+    Dict: dict = dict(zip(variables,units))
     light: str = variables[0]
     light_unit: str = units[0]
     temperature: str = variables[1]
@@ -111,6 +111,109 @@ class Compensation:
     nh3_hum_comp_factor: float
     nh3_bar_comp_factor: float
 
+@dataclass
+def Display_Limits:
+    # Define your own warning limits
+    # The limits definition follows the order of the variables array
+    # Example limits explanation for temperature:
+    # dlow =4, low = 18, normal = 28, high = 35, means
+    # [-273.15 .. 4] -> Dangerously Low
+    # (4 .. 18]      -> Low
+    # (18 .. 28]     -> Normal
+    # (28 .. 35]     -> High
+    # (35 .. MAX]    -> Dangerously High
+    # DISCLAIMER: The limits provided here are just examples and come
+    # with NO WARRANTY. The authors of this example code claim
+    # NO RESPONSIBILITY if reliance on the following values or this
+    # code in general leads to ANY DAMAGES or DEATH.
+    vlow: int
+    low: int
+    normal: int
+    high: int
+
+@dataclass
+def Display_Limits:
+    temperature: Limits
+    pressure: Limits
+    humidity: Limits
+    light: Limits
+    oxidising: Limits
+    reducing: Limits
+    nh3: Limits
+    pm1: Limits
+    pm25: Limits
+    pm10: Limits
+    noise: Limits
+    co2: Limits
+    voc: Limits
+
+
+
+@dataclass
+def Display_RGB:
+    #RGB Pallet for values on the screen
+    vlow: tuple
+    low: tuple
+    normal: tuple
+    high: tuple
+    vhigh: tuple
+
+def load_display_config() -> tuple:
+    DL = Display_Limits({'temperature': Display_Limits(4,18,28,35),
+    'pressure': Display_Limits(250, 650, 1013.25, 1015),
+    'humidity': Display_Limits(20, 30, 60, 70),
+    'light': Display_Limits(-1, -1, 30000, 100000),
+    'oxidised': Display_Limits(-1, -1, 40, 50),
+    'reduced': Display_Limits(-1, -1, 450, 550),
+    'nh3': Display_Limits(-1, -1, 200, 300),
+    'pm1': Display_Limits(-1, -1, 50, 100),
+    'pm25': Display_Limits(-1, -1, 50, 100),
+    'pm10': Display_Limits(-1, -1, 50, 100),
+    'noise': Display_Limits(-1, -1, 50, 100), #Guess
+    'c02': Display_Limits(-1, -1, 50, 100), #Guess
+    'voc': Display_Limits(-1, -1, 50, 100)}) #Guess)
+    DRGB = Display_RGB({"vlow": (0, 0, 255),
+                        "low": (0, 255, 255), 
+                        "normal": (0, 255, 0),
+                        "high": (255, 255, 0),
+                        "vhigh": (255, 0, 0)})
+    return DL, DRGB
+
+@dataclass
+def Display_Limits:
+    # Define your own warning limits
+    # The limits definition follows the order of the variables array
+    # Example limits explanation for temperature:
+    # dlow =4, low = 18, normal = 28, high = 35, means
+    # [-273.15 .. 4] -> Dangerously Low
+    # (4 .. 18]      -> Low
+    # (18 .. 28]     -> Normal
+    # (28 .. 35]     -> High
+    # (35 .. MAX]    -> Dangerously High
+    # DISCLAIMER: The limits provided here are just examples and come
+    # with NO WARRANTY. The authors of this example code claim
+    # NO RESPONSIBILITY if reliance on the following values or this
+    # code in general leads to ANY DAMAGES or DEATH.
+    vlow: int
+    low: int
+    normal: int
+    high: int
+
+@dataclass
+def Display_Limits:    
+    temperature: Limits
+    pressure: Limits
+    humidity: Limits
+    light: Limits
+    oxidising: Limits
+    reducing: Limits
+    nh3: Limits
+    pm1: Limits
+    pm25: Limits
+    pm10: Limits
+    noise: Limits
+    co2: Limits
+    voc: Limits
 
 def load_compensation(config: Config, path: [str, None]) -> dataclass:
     """Loads compensation factors from file or json
